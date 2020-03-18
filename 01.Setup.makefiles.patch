@@ -1,0 +1,41 @@
+From 3b9334a905a48352a9f0034040da70b6df2dc164 Mon Sep 17 00:00:00 2001
+From: ionian <mike.github778@gmail.com>
+Date: Sun, 3 Feb 2019 15:07:20 -0800
+Subject: [PATCH] changes to config.mk for patch
+
+---
+ config.mk | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/config.mk b/config.mk
+index 2a067bd..caaf4eb 100644
+--- a/config.mk
++++ b/config.mk
+@@ -4,19 +4,19 @@ VERSION = 6.0
+ # Customize below to fit your system
+ 
+ # paths
+-PREFIX = /usr/local
++PREFIX = /usr
+ MANPREFIX = ${PREFIX}/share/man
+ 
+-X11INC = /usr/X11R6/include
+-X11LIB = /usr/X11R6/lib
++X11INC=/usr/include/X11
++X11LIB=/usr/lib/X11
+ 
+ # Xinerama
+ XINERAMALIBS = -L${X11LIB} -lXinerama
+ XINERAMAFLAGS = -DXINERAMA
+ 
+ # includes and libs
+-INCS = -I. -I/usr/include -I${X11INC}
+-LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS}
++INCS = -I${X11INC} -I/usr/include/freetype2
++LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} -lutil -lXext -lXft -lfontconfig
+ 
+ # flags
+ CPPFLAGS = -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+-- 
+2.20.1
+
