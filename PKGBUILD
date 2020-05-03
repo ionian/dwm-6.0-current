@@ -22,7 +22,6 @@ _patches=(01.Setup.makefiles.patch
 source=(${source[@]} ${_patches[@]})
 
 prepare() {
-#   cp $srcdir/$pkgname-$pkgver/config.def.h ../../config.h
    cd "$srcdir/$pkgname-$pkgver"
 
  for p in "${_patches[@]}"; do
@@ -30,22 +29,12 @@ prepare() {
     patch < ../$p || return 1
   done
 
-   cp $srcdir/$pkgname-$pkgver/config.def.h $srcdir/$pkgname-$pkgver/config.h
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+   cd "$srcdir/$pkgname-$pkgver"
+   cp -r "$srcdir/$pkgname-$pkgver/config.def.h" "$HOME/builds-arch/dwm/dwm-6.0-tweak/config.h"
 
-
-#  for p in "${_patches[@]}"; do
-#    echo "=> $p"
-#    patch < ../$p || return 1
-#  done
-
-#  cp $srcdir/config.h config.h
-
-
-  sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
   sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
   sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk
   sed -i 's/^LDFLAGS = -g/#LDFLAGS += -g/g' config.mk
